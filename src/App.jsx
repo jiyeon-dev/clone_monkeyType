@@ -1,6 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TypeConfig from "./components/TypeConfig";
+import Timer from "./components/Timer";
+import WordsWrapper from "./components/WordWrapper";
+import ResetButton from "./components/ResetButton";
 
 function App() {
   return (
@@ -10,8 +13,11 @@ function App() {
       style={{ gridTemplateRows: "auto 1fr auto" }}
     >
       <Header />
-      <main>
+      <main className='grid gap-3'>
         <TypeConfig />
+        <Timer />
+        <WordsWrapper></WordsWrapper>
+        <ResetButton />
       </main>
       <Footer />
     </div>

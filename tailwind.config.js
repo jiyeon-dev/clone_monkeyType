@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -71,7 +71,17 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      lineHeight: {
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
+        24: "6rem",
+        28: "7rem",
+        32: "8rem",
+        36: "9rem",
+        40: "10rem",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
