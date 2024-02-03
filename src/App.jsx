@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TypeConfig from "./components/TypeConfig";
 
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       style={{ gridTemplateRows: "auto 1fr auto" }}
     >
       <Header />
-      <main>main</main>
+      <main>
+        <TypeConfig />
+      </main>
       <Footer />
     </div>
   );

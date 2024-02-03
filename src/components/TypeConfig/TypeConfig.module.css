@@ -1,0 +1,41 @@
+.typeConfig {
+  display: grid;
+  grid-template-columns: auto 0.25rem auto 0.25rem auto;
+  gap: 1rem;
+  border-radius: var(--radius);
+}
+
+.toggleGroup {
+}
+
+.toggleGroupItem {
+}
+
+.toggleGroupItem:hover {
+  background-color: transparent !important;
+  color: var(--text-color) !important;
+}
+
+.toggleGroupItem[data-state="on"] {
+  color: var(--main-color) !important;
+  background-color: transparent !important;
+}
+
+.separator {
+  background-color: var(--bg-color);
+  border-radius: 0.25rem;
+  height: auto;
+  margin: 0.5rem 0;
+  width: 0.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .typeConfig {
+    grid-template-columns: none;
+    gap: 0;
+  }
+
+  .separator {
+    display: none;
+  }
+}
