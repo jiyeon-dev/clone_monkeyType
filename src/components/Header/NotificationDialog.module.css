@@ -1,0 +1,85 @@
+.sheetHeader {
+  margin-bottom: 16px;
+  user-select: none;
+}
+
+.sheetTitle {
+  /* text-xl */
+  font-size: 1.25rem /* 20px */;
+  line-height: 1.75rem /* 28px */;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem /* 8px */;
+  align-items: center;
+  color: var(--sub-color) !important;
+}
+
+.sheetContent {
+  background-color: var(--bg-color) !important;
+  border-left: 0;
+  /* rounded-l-lg */
+  border-top-left-radius: 0.5rem; /* 8px */
+  border-bottom-left-radius: 0.5rem; /* 8px */
+  height: 100%;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.list {
+  display: grid;
+  gap: 1rem;
+  /* height: calc((100vh - 205px) / 2); */
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.item {
+  /* grid-template-areas:
+    "indicator title buttons"
+    "indicator body buttons"; */
+  grid-template-columns: 0.25rem auto;
+  font-size: 0.75rem;
+
+  display: grid;
+  gap: 0.25rem 0.5rem;
+}
+
+.indicator {
+  grid-area: "indicator";
+  height: 100%;
+  border-radius: 0.25rem;
+  width: 0.25rem;
+  grid-row: span 2 / span 2;
+  background-color: var(--sub-color);
+}
+
+.title {
+  grid-area: "title";
+  grid-row: span 1 / span 1;
+  grid-column: span 1 / span 1;
+  color: var(--sub-color);
+}
+
+.body {
+  grid-area: "body";
+  grid-row: span 1 / span 1;
+  grid-column: span 1 / span 1;
+  color: var(--text-color);
+}
+
+.empty {
+  color: var(--text-color);
+  font-size: 0.75rem;
+  margin: 2rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.separator {
+  background-color: var(--sub-alt-color);
+  border-radius: 0.5rem;
+  height: 0.25rem;
+  width: 100%;
+  margin: 2rem 0;
+}
