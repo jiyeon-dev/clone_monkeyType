@@ -1,4 +1,5 @@
-import { FaCode, FaPalette, FaCodeBranch } from "react-icons/fa";
+import { FaCode, FaCodeBranch } from "react-icons/fa";
+import ColorPicker from "../ColorPicker";
 
 export default function Footer() {
   const handleClick = (url) => {
@@ -19,10 +20,7 @@ export default function Footer() {
       </div>
 
       <div className='flex gap-4'>
-        <button>
-          <FaPalette />
-          bouquet
-        </button>
+        <ColorPicker />
         <button>
           <FaCodeBranch />
           {__APP_VERSION__}

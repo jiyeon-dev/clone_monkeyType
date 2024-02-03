@@ -1,0 +1,32 @@
+.command {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+.commandInput {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.commandItem {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer !important;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: 12px !important;
+  padding: 2px 6px !important;
+}
+.commandItem:hover {
+  /* TODO: hover 정보에 따라 바뀌어야 함 */
+  background-color: var(--text-color) !important;
+  color: var(--bg-color) !important;
+}
+
+.commandItem[aria-selected="true"] {
+  background-color: var(--text-color) !important;
+  color: var(--bg-color) !important;
+}
