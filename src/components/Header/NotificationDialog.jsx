@@ -15,11 +15,7 @@ export default function NotificationDialog() {
       </SheetTrigger>
 
       {/* Content */}
-      <SheetContent
-        position='left'
-        className={styles.sheetContent}
-        hideCloseButton={true}
-      >
+      <SheetContent position='left' className={styles.sheetContent}>
         <NotificationList icon={<FaBullhorn />} title='Announcements' />
         <div className={styles.separator} />
         <NotificationList
