@@ -2,7 +2,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { FaAt, FaHashtag, FaClock, FaFont } from "react-icons/fa";
 import styles from "./TypeConfig.module.css";
 
-export default function TypeConfig() {
+export default function TypeConfig({ config, onChangeConfig }) {
   return (
     <div className='flex items-center justify-center text-center mb-4'>
       <div
@@ -10,7 +10,11 @@ export default function TypeConfig() {
         style={{ backgroundColor: "var(--sub-alt-color)" }}
       >
         {/* punctuation and number */}
-        <ToggleGroup type='multiple'>
+        <ToggleGroup
+          type='multiple'
+          value={config.puncNum}
+          onValueChange={(value) => onChangeConfig("puncNum", value)}
+        >
           <MyToggleGroupItem value='punctuation'>
             <FaAt />
             punctuation
@@ -24,7 +28,11 @@ export default function TypeConfig() {
         <div className={styles.separator} />
 
         {/* mode */}
-        <ToggleGroup type='single'>
+        <ToggleGroup
+          type='single'
+          value={config.mode}
+          onValueChange={(value) => onChangeConfig("mode", value)}
+        >
           <MyToggleGroupItem value='time'>
             <FaClock />
             time
@@ -38,7 +46,11 @@ export default function TypeConfig() {
         <div className={styles.separator} />
 
         {/* timer */}
-        <ToggleGroup type='single'>
+        <ToggleGroup
+          type='single'
+          value={config.timer}
+          onValueChange={(value) => onChangeConfig("timer", value)}
+        >
           <MyToggleGroupItem value='15'>15</MyToggleGroupItem>
           <MyToggleGroupItem value='30'>30</MyToggleGroupItem>
           <MyToggleGroupItem value='60'>60</MyToggleGroupItem>
