@@ -102,3 +102,11 @@ button {
 button:hover {
   color: var(--text-color);
 }
+
+span.correct {
+  color: var(--text-color);
+}
+span.incorrect {
+  /* text-red-500 */
+  color: rgb(239 68 68);
+}

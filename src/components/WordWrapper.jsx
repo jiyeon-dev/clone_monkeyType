@@ -1,7 +1,10 @@
 import { FaMousePointer } from "react-icons/fa";
 import Word from "./Word";
+import { useKeyDown } from "@/hooks/useKeyDown";
 
-export default function WordsWrapper({ children, focused = false }) {
+export default function WordsWrapper({ focused = true }) {
+  const { inputs, cursor } = useKeyDown(focused);
+
   return (
     <div className='mt-7 overflow-hidden' style={{ height: "120px" }}>
       <div
@@ -15,18 +18,32 @@ export default function WordsWrapper({ children, focused = false }) {
       </div>
 
       <div
+        id='wordsWrapper'
         className={`${
           focused ? "" : "blur-sm"
         } relative focus:border-0 focus:border-none focus:outline-none`}
         style={{ color: "var(--sub-color)" }}
       >
         <div
+          id='caret'
+          className='animate-caret text-2xl	h-7	absolute origin-top-left'
+          style={{
+            width: "0.15rem",
+            background: "var(--caret-color)",
+          }}
+        />
+
+        <div
           id='words'
           className={`flex flex-start flex-wrap w-100 select-none text-2xl`}
         >
-          {children}
-          {[...Array(100).keys()].map((word) => (
-            <Word key={word} word={word} />
+          {[...Array(100).keys()].map((word, index) => (
+            <Word
+              key={word}
+              word={"ibcd"}
+              userTypedWord={inputs.split(" ")[index]}
+              isActiveWord={cursor.word === index}
+            />
           ))}
         </div>
       </div>
