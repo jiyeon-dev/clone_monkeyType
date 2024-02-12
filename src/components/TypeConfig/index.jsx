@@ -18,14 +18,22 @@ export default function TypeConfig() {
           value={config.puncNum}
           onValueChange={(value) => handleChangeConfig("puncNum", value)}
         >
-          <MyToggleGroupItem value='punctuation'>
+          <MyToggleGroupItem value='lorem'>
+            <FaAt />
+            lorem
+          </MyToggleGroupItem>
+          <MyToggleGroupItem value='word'>
+            <FaHashtag />
+            word
+          </MyToggleGroupItem>
+          {/* <MyToggleGroupItem value='punctuation'>
             <FaAt />
             punctuation
           </MyToggleGroupItem>
           <MyToggleGroupItem value='number'>
             <FaHashtag />
             number
-          </MyToggleGroupItem>
+          </MyToggleGroupItem> */}
         </ToggleGroup>
 
         <div className={styles.separator} />
@@ -40,10 +48,10 @@ export default function TypeConfig() {
             <FaClock />
             time
           </MyToggleGroupItem>
-          <MyToggleGroupItem value='word'>
+          {/* <MyToggleGroupItem value='word'>
             <FaFont />
             word
-          </MyToggleGroupItem>
+          </MyToggleGroupItem> */}
         </ToggleGroup>
 
         <div className={styles.separator} />

@@ -6,9 +6,23 @@ import WordsWrapper from "./components/WordWrapper";
 import ResetButton from "./components/ResetButton";
 import Result from "./components/Result";
 import { useGameContext } from "./context/game";
+import About from "./components/About";
 
 function App() {
-  const { isGameOver } = useGameContext();
+  const { isGameOver, isAbout } = useGameContext();
+
+  let content = "";
+  if (isGameOver) content = <Result />;
+  else if (isAbout) content = <About />;
+  else
+    content = (
+      <>
+        <TypeConfig />
+        <Timer />
+        <WordsWrapper />
+        <ResetButton />
+      </>
+    );
 
   return (
     <div
@@ -17,17 +31,7 @@ function App() {
       style={{ gridTemplateRows: "auto 1fr auto" }}
     >
       <Header />
-      <main className='grid gap-3'>
-        {isGameOver && <Result />}
-        {!isGameOver && (
-          <>
-            <TypeConfig />
-            <Timer />
-            <WordsWrapper />
-            <ResetButton />
-          </>
-        )}
-      </main>
+      <main className='grid gap-3'>{content}</main>
       <Footer />
     </div>
   );

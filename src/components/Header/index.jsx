@@ -5,7 +5,7 @@ import NotificationDialog from "./NotificationDialog";
 import { useGameContext } from "@/context/game";
 
 export default function Header() {
-  const { handleRestart } = useGameContext();
+  const { handleRestart, setIsAbout } = useGameContext();
 
   return (
     <header className='flex items-center justify-between select-none'>
@@ -24,7 +24,7 @@ export default function Header() {
           <ButtonTooltip text='Restart Test' onClick={handleRestart}>
             <FaKeyboard size={20} />
           </ButtonTooltip>
-          <ButtonTooltip text='About' onClick={handleRestart}>
+          <ButtonTooltip text='About' onClick={() => setIsAbout(true)}>
             <FaQuestionCircle size={16} />
           </ButtonTooltip>
         </div>
