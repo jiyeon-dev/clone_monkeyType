@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { FaPalette } from "react-icons/fa";
 import styles from "./ColorPicker.module.css";
 import {
@@ -14,40 +14,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useThemeContext } from "@/context/theme";
 
-const statuses = [
-  {
-    value: "backlog",
-    label: "Backlog",
-  },
-  {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-  },
-];
+export default function ColorPicker() {
+  const [open, setOpen] = useState(false);
+  const {
+    themeList,
+    currentThemeName,
+    handleChangeTheme: onChangeTheme,
+  } = useThemeContext();
 
-export default function ComboboxPopover() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState(null);
+  const handleChangeTheme = async (themeName) => {
+    onChangeTheme(themeName);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button>
           <FaPalette />
-          bouquet
+          {currentThemeName}
         </button>
       </PopoverTrigger>
 
@@ -60,34 +47,29 @@ export default function ComboboxPopover() {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {statuses.map((status) => (
+              {themeList.map((theme) => (
                 <CommandItem
                   className={styles.commandItem}
-                  key={status.value}
-                  value={status.value}
-                  onSelect={(value) => {
-                    setSelectedStatus(
-                      statuses.find((priority) => priority.value === value) ||
-                        null
-                    );
-
-                    console.log(value);
-                    setOpen(false);
-                  }}
+                  key={theme.name}
+                  value={theme.name}
+                  onSelect={(value) => handleChangeTheme(value)}
                 >
-                  {status.label}
-                  <div className='flex gap-1 rounded-lg p-1'>
+                  {theme.name}
+                  <div
+                    className='flex gap-1 rounded-lg p-1'
+                    style={{ backgroundColor: theme.bgColor }}
+                  >
                     <div
                       className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: "red" }}
+                      style={{ backgroundColor: theme.mainColor }}
                     />
                     <div
                       className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: "yellow" }}
+                      style={{ backgroundColor: theme.subColor }}
                     />
                     <div
                       className='w-3 h-3 rounded-full'
-                      style={{ backgroundColor: "skyblue" }}
+                      style={{ backgroundColor: theme.textColor }}
                     />
                   </div>
                 </CommandItem>
