@@ -72,21 +72,35 @@ const isEndOfLine = () => {
   return false;
 };
 
-export const useWords = (config, onFocus, startTimer) => {
+export const useWords = (config, startTimer) => {
   const [words, setWords] = useState(generateWords(config));
   const [inputs, setInputs] = useState("");
   const [cursor, setCursor] = useState({
     word: 0,
     char: 0,
   });
+  const [onFocus, setOnFocus] = useState(false);
 
   const isLastWord = words.length - 1 === cursor.word;
   const isLastCharacter = words[words.length - 1].length === cursor.char;
 
+  const handleOnFocus = useCallback((focused) => {
+    const container = document.getElementById("wordsContainer");
+    if (container)
+      if (focused) container.focus();
+      else container.blur();
+
+    setOnFocus(focused);
+  }, []);
+
   const handleKeyDown = useCallback(
     (event) => {
       const { code, key } = event;
-      if ((!onFocus, !isAllowedKeyCode(event))) return;
+      if (!isAllowedKeyCode(event)) return;
+      if (!onFocus) {
+        handleOnFocus(true);
+        return;
+      }
 
       if (isLastWord && isLastCharacter) return; // 이미 다 입력한 경우
       if (code === "Space" && isLastWord) return; // 마지막 단어에서 space 입력한 경우
@@ -104,7 +118,14 @@ export const useWords = (config, onFocus, startTimer) => {
         else return prev + key;
       });
     },
-    [cursor, onFocus, isLastWord, isLastCharacter, startTimer]
+    [
+      onFocus,
+      isLastWord,
+      isLastCharacter,
+      cursor.char,
+      startTimer,
+      handleOnFocus,
+    ]
   );
 
   const handleMoveCharacter = (keyCode) => {
@@ -166,6 +187,8 @@ export const useWords = (config, onFocus, startTimer) => {
     words,
     inputs,
     cursor,
+    onFocus,
+    handleOnFocus,
     clearInputs,
   };
 };

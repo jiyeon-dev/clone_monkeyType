@@ -11,12 +11,8 @@ export default function GameProvider({ children }) {
   const { timer, startTimer, resetTimer, handleChangeTimer } = useTimer(
     config.timer
   );
-  const [onFocus, setOnFocus] = useState(false);
-  const { words, inputs, cursor, clearInputs } = useWords(
-    config,
-    onFocus,
-    startTimer
-  );
+  const { words, inputs, cursor, onFocus, handleOnFocus, clearInputs } =
+    useWords(config, startTimer);
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [result, setResult] = useState({
@@ -45,7 +41,7 @@ export default function GameProvider({ children }) {
 
   // 게임 종료
   if (timer === 0) {
-    setOnFocus(false);
+    handleOnFocus(false);
     setResult(calculateMetrics(words, inputs.split(" "), config.timer));
     setIsGameOver(true);
     clearInputs();
@@ -59,7 +55,7 @@ export default function GameProvider({ children }) {
     handleRestart,
     startTimer,
     onFocus,
-    setOnFocus,
+    handleOnFocus,
     timer,
     inputs,
     cursor,

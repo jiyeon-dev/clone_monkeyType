@@ -3,15 +3,16 @@ import Word from "./Word";
 import { useGameContext } from "@/context/game";
 
 export default function WordsWrapper() {
-  const { words, inputs, cursor, onFocus, setOnFocus } = useGameContext();
+  const { words, inputs, cursor, onFocus, handleOnFocus } = useGameContext();
 
   return (
     <div
+      id='wordsContainer'
       className='mt-7 overflow-hidden outline-none'
       style={{ height: "120px" }}
       tabIndex={0}
-      onFocus={() => setOnFocus(true)}
-      onBlur={() => setOnFocus(false)}
+      onFocus={() => handleOnFocus(true)}
+      onBlur={() => handleOnFocus(false)}
     >
       <div
         className={`${
