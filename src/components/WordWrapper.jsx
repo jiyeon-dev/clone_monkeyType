@@ -7,7 +7,7 @@ export default function WordsWrapper() {
 
   return (
     <div
-      className='mt-7 overflow-hidden focus:border-0 active:border-0'
+      className='mt-7 overflow-hidden outline-none'
       style={{ height: "120px" }}
       tabIndex={0}
       onFocus={() => setOnFocus(true)}
@@ -25,16 +25,14 @@ export default function WordsWrapper() {
 
       <div
         id='wordsWrapper'
-        className={`${
-          onFocus ? "" : "blur-sm"
-        } relative z-10 focus:border-0 focus:border-none focus:outline-none`}
+        className={`${onFocus ? "" : "blur-sm"} relative z-10`}
         style={{ color: "var(--sub-color)" }}
       >
         <div
           id='caret'
           className={`${
             onFocus ? "" : "hidden"
-          } animate-caret text-2xl h-7	absolute origin-top-left`}
+          } animate-caret text-2xl h-7 absolute origin-top-left`}
           style={{
             width: "0.15rem",
             background: "var(--caret-color)",
@@ -43,7 +41,8 @@ export default function WordsWrapper() {
 
         <div
           id='words'
-          className={`flex flex-start flex-wrap w-100 select-none text-2xl`}
+          style={{ height: "120px" }}
+          className={`flex flex-start flex-wrap w-100 select-none text-2xl overflow-hidden`}
         >
           {words.map((word, index) => (
             <Word

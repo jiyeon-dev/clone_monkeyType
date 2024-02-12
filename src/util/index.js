@@ -10,13 +10,14 @@ export const isAllowedKeyCode = (event) => {
   if (isCombinationKey) return false;
 
   const code = event.code;
-  return (
-    code.startsWith("Key") ||
-    code === "Backspace" ||
-    code === "Space" ||
-    code === "Period" ||
-    code === "Comma"
-  );
+  return code;
+  // return (
+  //   code.startsWith("Key") ||
+  //   code === "Backspace" ||
+  //   code === "Space" ||
+  //   code === "Period" ||
+  //   code === "Comma"
+  // );
 };
 
 /**
@@ -25,24 +26,12 @@ export const isAllowedKeyCode = (event) => {
  * @returns
  */
 export const generateWords = (config) => {
-  const { puncNum, timer } = config;
-
-  const count = { min: 0, max: 0 };
-  if (timer === "30") {
-    count.min = 3;
-    count.max = 5;
-  } else if (timer === "60") {
-    count.min = 5;
-    count.max = 7;
-  } else if (timer === "120") {
-    count.min = 7;
-    count.max = 10;
+  const { puncNum } = config;
+  if (puncNum === "punctuation") {
+    return faker.lorem.paragraph({ min: 10, max: 15 }).split(" ");
   } else {
-    count.min = 1;
-    count.max = 3;
+    return faker.word.words(30).split(" ");
   }
-
-  return faker.lorem.paragraph(count).split(" ");
 };
 
 // /**
@@ -71,4 +60,41 @@ export const convertTime = (time) => {
     const seconds = String(time % 60).padStart(2, "0");
     return `${minute}:${seconds}`;
   }
+};
+
+export const calculateMetrics = (expectWords, inputWords, time) => {
+  // 정확성, 틀린 문자수 초기화
+  let correctWords = 0;
+  let totalCharsTyped = 0;
+  let incorrectChars = 0;
+
+  // 정확성 및 틀린 문자수 계산
+  for (let i = 0; i < expectWords.length; i++) {
+    const expectedWord = expectWords[i];
+    const inputWord = inputWords[i] || ""; // Handling undefined input
+
+    for (let j = 0; j < expectedWord.length; j++) {
+      totalCharsTyped++;
+
+      if (inputWord[j] === expectedWord[j]) {
+        correctWords++;
+      } else {
+        incorrectChars++;
+      }
+    }
+  }
+
+  // 정확성 계산
+  const accuracy = (correctWords / totalCharsTyped) * 100;
+
+  // WPM 및 CPM 계산
+  const wpm = (correctWords / 5 / (time / 60)).toFixed(2); // Assuming average word length is 5 characters
+  const cpm = (correctWords / (time / 60)).toFixed(2);
+
+  return {
+    accuracy,
+    wpm,
+    cpm,
+    incorrectChars,
+  };
 };

@@ -23,6 +23,14 @@ const handleCaret = (activeWordIndex) => {
     caretElement.style.left = `${rect.right - wordsRect.left}px`;
     caretElement.style.top = `${rect.top - wordsRect.top}px`;
   } else {
+    // 새 단어 시작인 경우
+    // 두번째 줄부터 스크롤 이동
+    const scrollTop =
+      currentWord.offsetTop > 4
+        ? currentWord.offsetTop - 40
+        : currentWord.offsetTop;
+    wordDiv.scrollTo({ top: scrollTop });
+
     const rect = currentWord.getBoundingClientRect();
     caretElement.style.left = `${rect.left - wordsRect.left}px`;
     caretElement.style.top = `${rect.top - wordsRect.top}px`;
@@ -46,6 +54,23 @@ const getLastCharacterIndex = (wordIndex) => {
   return charIndex + 1;
 };
 
+/**
+ * 현재 글자가 줄의 끝인지 caret 위치 확인
+ * @returns {Boolean}
+ */
+const isEndOfLine = () => {
+  const caretElement = document.getElementById("caret");
+  if (!caretElement) return;
+  const caretRect = caretElement.getBoundingClientRect();
+  const wordsWrapper = document.getElementById("wordsWrapper");
+  const wordsWrapperRect = wordsWrapper.getBoundingClientRect();
+
+  if (caretRect.right + 15 > wordsWrapperRect.right) {
+    return true;
+  }
+  return false;
+};
+
 export const useWords = (config, onFocus, startTimer) => {
   const [words, setWords] = useState(generateWords(config));
   const [inputs, setInputs] = useState("");
@@ -60,10 +85,16 @@ export const useWords = (config, onFocus, startTimer) => {
   const handleKeyDown = useCallback(
     (event) => {
       const { code, key } = event;
-      if (!onFocus || !isAllowedKeyCode(event)) return;
+      if ((!onFocus, !isAllowedKeyCode(event))) return;
 
       if (isLastWord && isLastCharacter) return; // 이미 다 입력한 경우
       if (code === "Space" && isLastWord) return; // 마지막 단어에서 space 입력한 경우
+      if (code !== "Space" && code !== "Backspace" && isEndOfLine()) return; // 줄의 마지막 단어인 경우 더이상 입력 못하도록 막음.
+
+      // 최대 15자만 입력 가능
+      if (code !== "Space" && code !== "Backspace" && cursor.char >= 15) {
+        return;
+      }
 
       startTimer();
       handleMoveCharacter(code);
@@ -72,7 +103,7 @@ export const useWords = (config, onFocus, startTimer) => {
         else return prev + key;
       });
     },
-    [onFocus, isLastWord, isLastCharacter, startTimer]
+    [cursor, onFocus, isLastWord, isLastCharacter, startTimer]
   );
 
   const handleMoveCharacter = (keyCode) => {

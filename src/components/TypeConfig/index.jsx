@@ -34,7 +34,7 @@ export default function TypeConfig() {
         <ToggleGroup
           type='single'
           value={config.mode}
-          onValueChange={(value) => onChangeConfig("mode", value)}
+          onValueChange={(value) => handleChangeConfig("mode", value)}
         >
           <MyToggleGroupItem value='time'>
             <FaClock />
@@ -52,7 +52,7 @@ export default function TypeConfig() {
         <ToggleGroup
           type='single'
           value={config.timer}
-          onValueChange={(value) => onChangeConfig("timer", value)}
+          onValueChange={(value) => handleChangeConfig("timer", value)}
         >
           <MyToggleGroupItem value='15'>15</MyToggleGroupItem>
           <MyToggleGroupItem value='30'>30</MyToggleGroupItem>
