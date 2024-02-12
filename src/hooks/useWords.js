@@ -29,6 +29,23 @@ const handleCaret = (activeWordIndex) => {
   }
 };
 
+/**
+ * 입력받은 wordIndex 위치에 있는 단어에서 가장 마지막 입력된 글자의 index 반환
+ * @param {Number} wordIndex
+ * @returns
+ */
+const getLastCharacterIndex = (wordIndex) => {
+  const wordDiv = document.getElementById("words");
+  const currentWord = wordDiv.children[wordIndex];
+  if (!currentWord) return 0;
+  const charIndex = Array.from(currentWord.children).findLastIndex(
+    (child) =>
+      child.classList.contains("correct") ||
+      child.classList.contains("incorrect")
+  );
+  return charIndex + 1;
+};
+
 export const useWords = (config, onFocus, startTimer) => {
   const [words, setWords] = useState(generateWords(config));
   const [inputs, setInputs] = useState("");
@@ -68,15 +85,19 @@ export const useWords = (config, onFocus, startTimer) => {
           char = 0;
           break;
         case "Backspace":
-          word = prev.word;
-          char = prev.char - 1;
+          if (prev.char === 0) {
+            word = prev.word - 1;
+            char = getLastCharacterIndex(word);
+          } else {
+            word = prev.word;
+            char = prev.char - 1;
+          }
           break;
         default:
           word = prev.word;
           char = prev.char + 1;
       }
 
-      if (char < 0) word = word - 1;
       if (word < 0) word = 0;
 
       return { ...prev, word, char };
