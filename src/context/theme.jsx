@@ -34,6 +34,7 @@ const setTheme = async (themeName) => {
 };
 
 export default function ThemeProvider({ children }) {
+  const [openThemeModal, setOpenThemeModal] = useState(false);
   const [themeList, setThemeList] = useState([]);
   const [currentThemeName, setCurrentThemeName] = useState("bouquet");
 
@@ -57,6 +58,8 @@ export default function ThemeProvider({ children }) {
     themeList,
     currentThemeName,
     handleChangeTheme,
+    openThemeModal,
+    setOpenThemeModal,
   };
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

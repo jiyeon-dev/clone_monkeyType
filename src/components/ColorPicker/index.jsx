@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaPalette } from "react-icons/fa";
 import styles from "./ColorPicker.module.css";
 import {
@@ -17,20 +16,21 @@ import {
 import { useThemeContext } from "@/context/theme";
 
 export default function ColorPicker() {
-  const [open, setOpen] = useState(false);
   const {
     themeList,
     currentThemeName,
     handleChangeTheme: onChangeTheme,
+    openThemeModal,
+    setOpenThemeModal,
   } = useThemeContext();
 
   const handleChangeTheme = async (themeName) => {
     onChangeTheme(themeName);
-    setOpen(false);
+    setOpenThemeModal(false);
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={openThemeModal} onOpenChange={setOpenThemeModal}>
       <PopoverTrigger asChild>
         <button>
           <FaPalette />
@@ -40,10 +40,10 @@ export default function ColorPicker() {
 
       <PopoverContent className='p-0 w-[200px]' sideOffset='1'>
         <Command className={styles.command}>
-          <CommandInput
+          {/* <CommandInput
             className={styles.commandInput}
             placeholder='Type to search'
-          />
+          /> */}
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
