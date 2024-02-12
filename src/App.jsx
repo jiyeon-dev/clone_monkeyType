@@ -4,8 +4,12 @@ import TypeConfig from "./components/TypeConfig";
 import Timer from "./components/Timer";
 import WordsWrapper from "./components/WordWrapper";
 import ResetButton from "./components/ResetButton";
+import Result from "./components/Result";
+import { useGameContext } from "./context/game";
 
 function App() {
+  const { isGameOver } = useGameContext();
+
   return (
     <div
       id='contentWrapper'
@@ -14,10 +18,15 @@ function App() {
     >
       <Header />
       <main className='grid gap-3'>
-        <TypeConfig />
-        <Timer />
-        <WordsWrapper />
-        <ResetButton />
+        {isGameOver && <Result />}
+        {!isGameOver && (
+          <>
+            <TypeConfig />
+            <Timer />
+            <WordsWrapper />
+            <ResetButton />
+          </>
+        )}
       </main>
       <Footer />
     </div>

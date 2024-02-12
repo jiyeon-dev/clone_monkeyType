@@ -17,6 +17,15 @@ export default function GameProvider({ children }) {
     onFocus,
     startTimer
   );
+  //
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [result, setResult] = useState({
+    accuracy: 0,
+    wpm: 0,
+    cpm: 0,
+    correctWords: 0,
+    incorrectChars: 0,
+  });
 
   const handleChangeConfig = (key, value) => {
     if (!value) return;
@@ -29,19 +38,16 @@ export default function GameProvider({ children }) {
   const handleRestart = () => {
     clearInputs();
     resetTimer();
+    setIsGameOver(false);
   };
 
   // 게임 종료
   if (timer === 0) {
-    console.log("end");
     setOnFocus(false);
-    const { accuracy, wpm, cpm, incorrectChars } = calculateMetrics(
-      words,
-      inputs.split(" "),
-      config.timer
-    );
-    console.log(accuracy, wpm, cpm, incorrectChars);
-    handleRestart();
+    setResult(calculateMetrics(words, inputs.split(" "), config.timer));
+    setIsGameOver(true);
+    clearInputs();
+    resetTimer();
   }
 
   const value = {
@@ -55,6 +61,8 @@ export default function GameProvider({ children }) {
     timer,
     inputs,
     cursor,
+    isGameOver,
+    result,
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

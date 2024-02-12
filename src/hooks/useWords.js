@@ -8,6 +8,7 @@ import { generateWords, isAllowedKeyCode } from "@/util";
 const handleCaret = (activeWordIndex) => {
   const caretElement = document.getElementById("caret");
   const wordDiv = document.getElementById("words");
+  if (!wordDiv) return;
   const currentWord = wordDiv.children[activeWordIndex];
   const currentChar = Array.from(currentWord.children)
     .reverse()

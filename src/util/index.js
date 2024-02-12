@@ -92,9 +92,10 @@ export const calculateMetrics = (expectWords, inputWords, time) => {
   const cpm = (correctWords / (time / 60)).toFixed(2);
 
   return {
-    accuracy,
+    accuracy: accuracy.toFixed(2),
     wpm,
     cpm,
+    correctWords,
     incorrectChars,
   };
 };
