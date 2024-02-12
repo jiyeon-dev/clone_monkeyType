@@ -1,8 +1,11 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { FaAt, FaHashtag, FaClock, FaFont } from "react-icons/fa";
 import styles from "./TypeConfig.module.css";
+import { useGameContext } from "@/context/game";
 
-export default function TypeConfig({ config, onChangeConfig }) {
+export default function TypeConfig() {
+  const { config, handleChangeConfig } = useGameContext();
+
   return (
     <div className='flex items-center justify-center text-center mb-4'>
       <div
@@ -13,7 +16,7 @@ export default function TypeConfig({ config, onChangeConfig }) {
         <ToggleGroup
           type='multiple'
           value={config.puncNum}
-          onValueChange={(value) => onChangeConfig("puncNum", value)}
+          onValueChange={(value) => handleChangeConfig("puncNum", value)}
         >
           <MyToggleGroupItem value='punctuation'>
             <FaAt />

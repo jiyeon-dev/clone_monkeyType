@@ -1,36 +1,32 @@
 import { useConfig } from "@/hooks/useConfig";
-import { generateWords } from "@/util";
+import { useTimer } from "@/hooks/useTimer";
+import { useWords } from "@/hooks/useWords";
 import { createContext, useContext, useState } from "react";
 
 const GameContext = createContext();
 
 export default function GameProvider({ children }) {
   const { config, setChangeConfig } = useConfig();
+  const { timer, startTimer, resetTimer, handleChangeTimer } = useTimer(
+    config.timer
+  );
   const [onFocus, setOnFocus] = useState(false);
-  const [words, setWords] = useState(generateWords(config));
-
-  const handleCreateWords = () => {
-    setWords(() => {
-      return generateWords(config);
-    });
-  };
+  const { words, inputs, cursor, clearInputs } = useWords(
+    config,
+    onFocus,
+    startTimer
+  );
 
   const handleChangeConfig = (key, value) => {
     setChangeConfig(key, value);
     setOnFocus(false);
-    handleCreateWords();
-    // timer 초기화
-  };
-
-  const handleStart = () => {
-    setOnFocus(true);
-    // timer 시작
+    clearInputs();
+    if (key === "timer") handleChangeTimer(value);
   };
 
   const handleRestart = () => {
-    console.log("====handle restart");
-    handleCreateWords();
-    // timer 초기화
+    clearInputs();
+    resetTimer();
   };
 
   const value = {
@@ -38,9 +34,12 @@ export default function GameProvider({ children }) {
     config,
     handleChangeConfig,
     handleRestart,
-    handleStart,
+    startTimer,
     onFocus,
     setOnFocus,
+    timer,
+    inputs,
+    cursor,
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

@@ -1,15 +1,13 @@
 import { FaMousePointer } from "react-icons/fa";
 import Word from "./Word";
-import { useKeyDown } from "@/hooks/useKeyDown";
 import { useGameContext } from "@/context/game";
 
-export default function WordsWrapper({ words }) {
-  const { onFocus, setOnFocus } = useGameContext();
-  const { inputs, cursor } = useKeyDown(onFocus);
+export default function WordsWrapper() {
+  const { words, inputs, cursor, onFocus, setOnFocus } = useGameContext();
 
   return (
     <div
-      className='mt-7 overflow-hidden'
+      className='mt-7 overflow-hidden focus:border-0 active:border-0'
       style={{ height: "120px" }}
       tabIndex={0}
       onFocus={() => setOnFocus(true)}

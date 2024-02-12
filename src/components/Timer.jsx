@@ -1,6 +1,9 @@
-export default function Timer({ time }) {
-  const minute = String(Number.parseInt(time / 60)).padStart(2, "0");
-  const seconds = String(time % 60).padStart(2, "0");
+import { useGameContext } from "@/context/game";
+import { convertTime } from "@/util";
+
+export default function Timer() {
+  const { timer } = useGameContext();
+  const countdown = convertTime(timer);
 
   return (
     <div className='flex items-center justify-center select-none'>
@@ -10,7 +13,7 @@ export default function Timer({ time }) {
           color: "var(--main-color)",
         }}
       >
-        {minute}:{seconds}
+        {countdown}
       </span>
     </div>
   );

@@ -4,11 +4,8 @@ import TypeConfig from "./components/TypeConfig";
 import Timer from "./components/Timer";
 import WordsWrapper from "./components/WordWrapper";
 import ResetButton from "./components/ResetButton";
-import { useGameContext } from "@/context/game";
 
 function App() {
-  const { config, words, handleChangeConfig, handleRestart } = useGameContext();
-
   return (
     <div
       id='contentWrapper'
@@ -17,10 +14,10 @@ function App() {
     >
       <Header />
       <main className='grid gap-3'>
-        <TypeConfig config={config} onChangeConfig={handleChangeConfig} />
-        <Timer time={config.timer} />
-        <WordsWrapper words={words} />
-        <ResetButton onReset={handleRestart} />
+        <TypeConfig />
+        <Timer />
+        <WordsWrapper />
+        <ResetButton />
       </main>
       <Footer />
     </div>

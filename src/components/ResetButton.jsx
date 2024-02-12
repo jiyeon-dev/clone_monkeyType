@@ -6,12 +6,18 @@ import {
   TooltipArrow,
 } from "@/components/ui/tooltip";
 import { FaRedoAlt } from "react-icons/fa";
+import { useGameContext } from "@/context/game";
 
-export default function ResetButton({ onReset }) {
+export default function ResetButton() {
+  const { handleRestart } = useGameContext();
+
   return (
     <TooltipProvider delayDuration='200'>
       <Tooltip>
-        <TooltipTrigger className='px-8 py-4 mx-auto mt-8' onClick={onReset}>
+        <TooltipTrigger
+          className='px-8 py-4 mx-auto mt-8'
+          onClick={handleRestart}
+        >
           <FaRedoAlt />
         </TooltipTrigger>
 

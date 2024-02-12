@@ -10,7 +10,13 @@ export const isAllowedKeyCode = (event) => {
   if (isCombinationKey) return false;
 
   const code = event.code;
-  return code.startsWith("Key") || code === "Backspace" || code === "Space";
+  return (
+    code.startsWith("Key") ||
+    code === "Backspace" ||
+    code === "Space" ||
+    code === "Period" ||
+    code === "Comma"
+  );
 };
 
 /**
@@ -52,3 +58,17 @@ export const generateWords = (config) => {
 //     if (!el.contains(e.target)) callback();
 //   });
 // };
+
+/**
+ * mm:ss 형식으로 변경
+ * @param {string|Number} time
+ * @returns {string} mm:ss
+ */
+export const convertTime = (time) => {
+  if (!time) return "00:00";
+  else {
+    const minute = String(Number.parseInt(time / 60)).padStart(2, "0");
+    const seconds = String(time % 60).padStart(2, "0");
+    return `${minute}:${seconds}`;
+  }
+};
