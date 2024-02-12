@@ -28,10 +28,26 @@ const TooltipContent = React.forwardRef(
 );
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
+const ButtonTooltip = ({ children, text, sideOffset, ...props }) => {
+  return (
+    <TooltipProvider delayDuration='200'>
+      <Tooltip>
+        <TooltipTrigger {...props}>{children}</TooltipTrigger>
+
+        <TooltipContent side='bottom' sideOffset={sideOffset}>
+          <p>{text}</p>
+          <TooltipArrow />
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
 export {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
   TooltipArrow,
+  ButtonTooltip,
 };

@@ -1,8 +1,12 @@
 import Logo from "@/assets/logo.svg?react";
+import { ButtonTooltip } from "@/components/ui/tooltip";
 import { FaKeyboard, FaQuestionCircle } from "react-icons/fa";
 import NotificationDialog from "./NotificationDialog";
+import { useGameContext } from "@/context/game";
 
 export default function Header() {
+  const { handleRestart } = useGameContext();
+
   return (
     <header className='flex items-center justify-between select-none'>
       <div
@@ -16,13 +20,13 @@ export default function Header() {
         >
           GorillaType
         </h1>
-        <div className='flex gap-4'>
-          <button>
+        <div className='flex gap-4 ml-2'>
+          <ButtonTooltip text='Restart Test' onClick={handleRestart}>
             <FaKeyboard size={20} />
-          </button>
-          <button>
+          </ButtonTooltip>
+          <ButtonTooltip text='About' onClick={handleRestart}>
             <FaQuestionCircle size={16} />
-          </button>
+          </ButtonTooltip>
         </div>
       </div>
 
