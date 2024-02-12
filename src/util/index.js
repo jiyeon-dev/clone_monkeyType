@@ -10,14 +10,15 @@ export const isAllowedKeyCode = (event) => {
   if (isCombinationKey) return false;
 
   const code = event.code;
-  return code;
-  // return (
-  //   code.startsWith("Key") ||
-  //   code === "Backspace" ||
-  //   code === "Space" ||
-  //   code === "Period" ||
-  //   code === "Comma"
-  // );
+  return (
+    code.startsWith("Key") ||
+    code.startsWith("Digit") ||
+    code === "Backspace" ||
+    code === "Space" ||
+    code === "Period" ||
+    code === "Comma" ||
+    code === "Minus"
+  );
 };
 
 /**
