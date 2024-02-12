@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { isAllowedKeyCode } from "@/util";
+import { useGameContext } from "@/context/game";
 
 /**
  * 커서 이동 (left, top 변경)
@@ -29,7 +30,8 @@ const handleCaret = (activeWordIndex) => {
   }
 };
 
-export const useKeyDown = (focused) => {
+export const useKeyDown = () => {
+  const { onFocus, handleStart, setOnFocus } = useGameContext();
   const [inputs, setInputs] = useState("");
   const [cursor, setCursor] = useState({
     word: 0,
@@ -39,8 +41,11 @@ export const useKeyDown = (focused) => {
   const handleKeyDown = useCallback(
     (event) => {
       const { code, key } = event;
-
-      if (!focused || !isAllowedKeyCode(event)) return;
+      if (!isAllowedKeyCode(event)) return;
+      if (!onFocus) {
+        handleStart();
+        return;
+      }
 
       handleMoveCharacter(code);
       setInputs((prev) => {
@@ -48,7 +53,7 @@ export const useKeyDown = (focused) => {
         else return prev + key;
       });
     },
-    [focused]
+    [onFocus, handleStart]
   );
 
   const handleMoveCharacter = (keyCode) => {

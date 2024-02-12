@@ -4,25 +4,10 @@ import TypeConfig from "./components/TypeConfig";
 import Timer from "./components/Timer";
 import WordsWrapper from "./components/WordWrapper";
 import ResetButton from "./components/ResetButton";
-import { useState } from "react";
+import { useGameContext } from "@/context/game";
 
 function App() {
-  const [config, setConfig] = useState({
-    puncNum: ["punctuation"],
-    mode: "time",
-    timer: "15",
-  });
-
-  const handleChangeConfig = (key, value) => {
-    setConfig((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  // TODO: faker
-  // TODO: reset timer
-  // TODO: focus event
+  const { config, words, handleChangeConfig, handleRestart } = useGameContext();
 
   return (
     <div
@@ -33,9 +18,9 @@ function App() {
       <Header />
       <main className='grid gap-3'>
         <TypeConfig config={config} onChangeConfig={handleChangeConfig} />
-        <Timer />
-        <WordsWrapper></WordsWrapper>
-        <ResetButton />
+        <Timer time={config.timer} />
+        <WordsWrapper words={words} />
+        <ResetButton onReset={handleRestart} />
       </main>
       <Footer />
     </div>

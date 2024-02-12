@@ -1,4 +1,7 @@
-export default function Timer() {
+export default function Timer({ time }) {
+  const minute = String(Number.parseInt(time / 60)).padStart(2, "0");
+  const seconds = String(time % 60).padStart(2, "0");
+
   return (
     <div className='flex items-center justify-center select-none'>
       <span
@@ -7,7 +10,7 @@ export default function Timer() {
           color: "var(--main-color)",
         }}
       >
-        00:24
+        {minute}:{seconds}
       </span>
     </div>
   );
