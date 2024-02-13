@@ -2,7 +2,9 @@
 
 | inspired by [MonkeyType](https://monkeytype.com/)
 
-## ToDo
+## Live Demo
+
+Check out the live demo [here](https://jiyeon-dev.github.io/clone_monkeyType/).
 
 ## Package / Library
 
