@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export const useConfig = () => {
   const [config, setConfig] = useState({
-    puncNum: ["punctuation"],
+    puncNum: ["lorem"],
     mode: "time",
     timer: "15",
   });

@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { fakerES as faker } from "@faker-js/faker";
 
 /**
  * 입력 가능한 키인지 체크
@@ -26,12 +26,16 @@ export const isAllowedKeyCode = (event) => {
  * @param {object} config
  * @returns
  */
+// const faker = new Faker({ locale: [es] });
 export const generateWords = (config) => {
   const { puncNum } = config;
-  if (puncNum === "punctuation") {
-    return faker.lorem.paragraph({ min: 10, max: 15 }).split(" ");
+
+  if (puncNum.includes("lorem") && !puncNum.includes("word")) {
+    return faker.lorem.paragraphs({ min: 10, max: 15 }).split(" ");
+  } else if (!puncNum.includes("lorem") && puncNum.includes("word")) {
+    return faker.word.words(200).split(" ");
   } else {
-    return faker.word.words(30).split(" ");
+    return faker.lorem.sentences({ min: 10, max: 15 }).split(" ");
   }
 };
 
@@ -70,7 +74,8 @@ export const calculateMetrics = (expectWords, inputWords, time) => {
   let incorrectChars = 0;
 
   // 정확성 및 틀린 문자수 계산
-  for (let i = 0; i < expectWords.length; i++) {
+  for (let i = 0; i < inputWords.length; i++) {
+    // 입력한 단어 까지만 계산
     const expectedWord = expectWords[i];
     const inputWord = inputWords[i] || ""; // Handling undefined input
 
