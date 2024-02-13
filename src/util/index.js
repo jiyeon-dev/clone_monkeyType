@@ -105,14 +105,3 @@ export const calculateMetrics = (expectWords, inputWords, time) => {
     incorrectChars,
   };
 };
-
-let themesList;
-export const getThemeList = async () => {
-  if (!themesList || themesList.length === 0) {
-    const response = await fetch("../../static/themes/_list.json");
-    themesList = await response.json();
-    console.log("---update");
-    // setThemeList(themesList);
-  }
-  return themesList;
-};

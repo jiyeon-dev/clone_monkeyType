@@ -2,21 +2,23 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
 
-const THEME_PATH = "/static/themes";
+const THEME_PATH = import.meta.env.BASE_URL + "static/themes";
 
 /**
  * 테마 리스트 조회
  * @returns
  */
+import themesList from "@/data/theme_list.json";
 const getThemeList = async () => {
-  try {
-    const response = await fetch(THEME_PATH + "/_list.json");
-    const themesList = await response.json();
-    return themesList;
-  } catch (error) {
-    console.error("Failed to fetch themes list:", error);
-    return [];
-  }
+  return themesList;
+  // try {
+  //   const response = await fetch(THEME_PATH + "/_list.json");
+  //   const themesList = await response.json();
+  //   return themesList;
+  // } catch (error) {
+  //   console.error("Failed to fetch themes list:", error);
+  //   return [];
+  // }
 };
 
 /**
