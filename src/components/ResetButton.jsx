@@ -9,7 +9,7 @@ export default function ResetButton() {
     <ButtonTooltip
       text='Restart Test'
       className='px-8 py-4 mx-auto mt-8'
-      sideOffset='-1'
+      sideOffset={"-5"}
       onClick={handleRestart}
     >
       <FaRedoAlt />
