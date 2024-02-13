@@ -4,6 +4,16 @@ import { FaBell, FaBullhorn, FaCommentAlt } from "react-icons/fa";
 import styles from "./NotificationDialog.module.css";
 import NotificationList from "./NotificationList";
 
+const items = [
+  { title: "Notice", type: "notice", message: "This is My New Project🎉" },
+  {
+    title: "Connection",
+    type: "main",
+    message: "Thank you for watching👩🏻‍💻",
+  },
+  { title: "important", type: "error", message: "🚀" },
+];
+
 export default function NotificationDialog() {
   return (
     <Sheet>
@@ -21,7 +31,7 @@ export default function NotificationDialog() {
         <NotificationList
           icon={<FaCommentAlt />}
           title='Announcements'
-          items={[1]}
+          items={items}
         />
       </SheetContent>
     </Sheet>

@@ -1,6 +1,17 @@
 import { SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import styles from "./NotificationDialog.module.css";
 
+const getIndicatorStyle = (type) => {
+  switch (type) {
+    case "main":
+      return { backgroundColor: "var(--main-color)" };
+    case "error":
+      return { backgroundColor: "var(--error-color)" };
+    default:
+      return { backgroundColor: "var(--sub-color)" };
+  }
+};
+
 export default function NotificationList({ icon, title, items = [] }) {
   return (
     <section>
@@ -17,9 +28,12 @@ export default function NotificationList({ icon, title, items = [] }) {
         )}
         {items.map((item, index) => (
           <div key={index} className={styles.item}>
-            <div className={styles.indicator}></div>
-            <div className={styles.title}>Notice</div>
-            <div className={styles.body}>Test invalid - AFK detected</div>
+            <div
+              className={styles.indicator}
+              style={getIndicatorStyle(item.type)}
+            ></div>
+            <div className={styles.title}>{item.type}</div>
+            <div className={styles.body}>{item.message}</div>
           </div>
         ))}
       </div>
