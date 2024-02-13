@@ -96,6 +96,8 @@ export const useWords = (config, startTimer) => {
   const handleKeyDown = useCallback(
     (event) => {
       const { code, key } = event;
+      const wordDiv = document.getElementById("words");
+      if (!wordDiv) return;
       if (!isAllowedKeyCode(event)) return;
       if (!onFocus) {
         handleOnFocus(true);
